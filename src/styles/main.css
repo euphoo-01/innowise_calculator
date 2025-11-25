@@ -1,2 +1,153 @@
 /* TODO: (UI) Styles for basic elements */
 /* TODO: (UI) Styles for theme handling */
+@import "./dark.css";
+@import "./light.css";
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../assets/Roboto.woff2") format("woff2");
+
+    font-weight: 100 200 300 400 500 600 700 800 900;
+    font-stretch: 75% 125%;
+
+    font-display: swap;
+}
+
+/* Калькулятор */
+
+.calc-wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 300px;
+    height: 420px;
+    background-color: var(--bg-color);
+    border: 1px var(--bg-color) solid;
+    border-radius: 24px;
+
+    box-shadow: var(--secondary-color) 0px 7px 8px -5px;
+}
+
+.calc-inputWindow {
+    width: 100%;
+    height: 92px;
+
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+
+    background-color: var(--bg-color);
+
+    font-size: 24px;
+    color: var(--text-color);
+}
+
+.calc-kb-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 0px;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.calc-kb-el {
+    font-size: 24px;
+    color: var(--text-color);
+    border: 1px var(--bg-color) solid;
+
+    transition: all 0.1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.calc-kb-el:hover {
+    opacity: 0.8;
+}
+
+.calc-kb-el:active {
+    opacity: 0.5;
+}
+
+.service-btn {
+    background-color: var(--secondary-color);
+}
+
+.operation-btn {
+    background-color: var(--accent-color);
+}
+
+.num-btn {
+    background-color: var(--primary-color);
+}
+
+.wide {
+    grid-column: span 2;
+}
+
+.empty {
+    visibility: hidden;
+}
+
+.calc-kb-el[data-value="0"] {
+    border-bottom-left-radius: 16px;
+}
+
+.calc-kb-el[data-value="="] {
+    border-bottom-right-radius: 16px;
+}
+
+/* Переключатель темы */
+
+.theme-toggler {
+    display: inline-block;
+
+    position: relative;
+    margin: auto 0;
+
+    width: 64px;
+    height: 32px;
+}
+
+.theme-checkbox {
+    appearance: none;
+}
+
+.theme-toggler .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    border-radius: 16px;
+
+    background-color: var(--third-color);
+
+    transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.theme-toggler .toggle-slider::before {
+    content: "";
+    position: absolute;
+    cursor: pointer;
+    left: 4px;
+    bottom: 4px;
+    height: 24px;
+    width: 26px;
+
+    border-radius: 50%;
+
+    background-color: var(--primary-color);
+    transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.toggle-checkbox:checked + .toggle-slider {
+    background-color: var(--accent-color);
+}
+
+.toggle-checkbox:checked + .toggle-slider::before {
+    transform: translateX(30px);
+}

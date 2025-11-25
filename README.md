@@ -14,7 +14,7 @@ You have to install `Node.js` to your system.
 ### Or you can build:
 
 1. Run `npm ci`
-2. Change `webpack.config.js` field `mode` to `"production"`
+2. Change field `mode` to `"production"` in `./webpack.config.js` file
 3. Run `npm run build`
 4. Open `./dist/` folder
 5. Run `index.html` file in your browser
@@ -44,3 +44,9 @@ You have to install `Node.js` to your system.
 ```
 
 I decided to separate business logic from the UI, while building this project.
+
+# Realization details
+
+- Expressions calculation based on Reversed Polish Notation.
+- UI is generated in JS module
+- Webpack deletes `console` methods in production build

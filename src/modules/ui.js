@@ -1,7 +1,6 @@
-import { BUTTONS_SETTINGS, DEFAULT_INPUT_VAL } from "./constants";
-
+import { BUTTONS_SETTINGS, DEFAULT_INPUT_VAL } from "./constants.js";
 /**
- * @returns {{calcWrapper: HTMLElement, input: HTMLElement, buttons: HTMLElement[]}}
+ * @returns {{calcWrapper: HTMLElement, inputWindow: HTMLElement, buttons: HTMLElement[]}}
  */
 
 export default function renderUI() {
@@ -9,7 +8,7 @@ export default function renderUI() {
     calcWrapper.className = "calc-wrapper";
 
     const display = document.createElement("div");
-    display.className = "calc-input";
+    display.className = "calc-inputWindow";
     display.textContent = DEFAULT_INPUT_VAL;
 
     const keyboardWrapper = document.createElement("div");
@@ -42,5 +41,25 @@ export default function renderUI() {
 
     calcWrapper.append(display, keyboardWrapper);
 
-    return { calcWrapper, input: display, buttons };
+    return { calcWrapper, inputWindow: display, buttons };
+}
+
+export function renderThemeSwitcher() {
+    const themeSwitcher = document.createElement("label");
+
+    themeSwitcher.className = "theme-toggler";
+    //    themeSwitcher.textContent = "Переключить тему";
+
+    const themeCheckbox = document.createElement("input");
+    themeCheckbox.type = "checkbox";
+    themeCheckbox.id = "theme-switch";
+    themeCheckbox.className = "toggle-checkbox";
+
+    const slider = document.createElement("span");
+    slider.className = "toggle-slider";
+
+    themeSwitcher.htmlFor = themeCheckbox.id;
+    themeSwitcher.append(themeCheckbox, slider);
+
+    return themeSwitcher;
 }

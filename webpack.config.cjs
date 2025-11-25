@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     mode: "development",
@@ -27,23 +28,24 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/i,
+                test: /\.css$/,
                 use: ["style-loader", "css-loader"],
             },
             {
-                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                test: /\.(png|svg|jpg|jpeg|gif)$/,
                 type: "asset/resource",
             },
         ],
     },
 
     optimization: {
+        minimize: true,
         minimizer: [
-            ({ minimizerContext }) => ({
-                ...minimizerContext.options.terserOptions,
-                compress: {
-                    ...minimizerContext.options.terserOptions.compress,
-                    drop_console: true,
+            new TerserPlugin({
+                terserOptions: {
+                    compress: {
+                        drop_console: true,
+                    },
                 },
             }),
         ],

@@ -1,6 +1,7 @@
-export const DEFAULT_INPUT_VAL = "";
+const DEFAULT_INPUT_VAL = "";
+const LONG_PRESS_DURATION = 500;
 
-export const ACTIONS = {
+const ACTIONS = {
     INPUT: "input",
     OPERATOR: "operator",
     UNO_OPERATOR: "unary_operator",
@@ -9,8 +10,8 @@ export const ACTIONS = {
     DELETE: "delete",
 };
 
-export const OPERATION_PRIORITY = {
-    // Higher value = higher priority
+const OPERATION_PRIORITY = {
+    // higher value = higher priority
     "+": 1,
     "-": 1,
     "×": 2,
@@ -18,7 +19,7 @@ export const OPERATION_PRIORITY = {
     "%": 2,
 };
 
-export const BUTTONS_SETTINGS = [
+const BUTTONS_SETTINGS = [
     // in rendering order (lines)
     { text: "(", className: "service-btn", actionType: ACTIONS.INPUT, value: "(" },
     { text: ")", className: "service-btn", actionType: ACTIONS.INPUT, value: ")" },
@@ -50,8 +51,15 @@ export const BUTTONS_SETTINGS = [
     { text: "3", className: "num-btn", actionType: ACTIONS.INPUT, value: "3" },
     { text: "-", className: "operation-btn", actionType: ACTIONS.OPERATOR, value: "-" },
 
-    { text: "⌫", className: "service-btn", actionType: ACTIONS.DELETE },
-    { text: "0", className: "num-btn", actionType: ACTIONS.INPUT, value: "0" },
+    { text: "0", className: "num-btn wide", actionType: ACTIONS.INPUT, value: "0" },
     { text: ",", className: "service-btn", actionType: ACTIONS.INPUT, value: "." },
-    { text: "=", className: "operation-btn", actionType: ACTIONS.CALCULATE },
+    { text: "=", className: "operation-btn", actionType: ACTIONS.CALCULATE, value: "=" },
 ];
+
+export {
+    DEFAULT_INPUT_VAL,
+    LONG_PRESS_DURATION,
+    OPERATION_PRIORITY,
+    BUTTONS_SETTINGS,
+    ACTIONS,
+};
