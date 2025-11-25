@@ -45,10 +45,14 @@ export default function renderUI() {
 }
 
 export function renderThemeSwitcher() {
+    const toggleWrapper = document.createElement("div");
+    toggleWrapper.className = "theme-toggler-wrapper";
+
+    const label = document.createTextNode("Сменить тему");
+
     const themeSwitcher = document.createElement("label");
 
     themeSwitcher.className = "theme-toggler";
-    //    themeSwitcher.textContent = "Переключить тему";
 
     const themeCheckbox = document.createElement("input");
     themeCheckbox.type = "checkbox";
@@ -60,6 +64,7 @@ export function renderThemeSwitcher() {
 
     themeSwitcher.htmlFor = themeCheckbox.id;
     themeSwitcher.append(themeCheckbox, slider);
+    toggleWrapper.append(themeSwitcher, label);
 
-    return themeSwitcher;
+    return toggleWrapper;
 }
