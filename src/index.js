@@ -1,5 +1,6 @@
 import renderUI, { renderThemeSwitcher } from "./modules/ui.js";
 import { initTheme, handleThemeSwitch } from "./modules/theme.js";
+import { initInput, handleButtonPress } from "./modules/calc.js";
 import "./styles/main.css";
 
 const root = document.querySelector(".root");
@@ -13,6 +14,17 @@ if (root) {
     initTheme(themeSwitcher.querySelector(".toggle-checkbox"), root);
     handleThemeSwitch(themeSwitcher.querySelector(".toggle-checkbox"), root);
 
-    // TODO: (L) Connect entry point with calculator's logic
-    // TODO: (L) Connect entry point with theme switcher's logic
+    const inputVal = initInput();
+    inputWindow.textContent = inputVal;
+
+    buttons.forEach((btn) =>
+        btn.addEventListener(
+            "click",
+            () =>
+                (inputWindow.textContent = handleButtonPress(
+                    btn.dataset.actionType,
+                    btn.dataset.value,
+                )),
+        ),
+    );
 }

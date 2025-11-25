@@ -1,4 +1,3 @@
-// TODO: (L) Theme handlers, based on global CSS vars
 import { THEME_LOCAL_STORAGE_KEY } from "./constants.js";
 
 function applyTheme(theme, root) {
