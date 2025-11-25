@@ -1,4 +1,4 @@
-:root {
+html:not([data-theme="dark"]) {
     --bg-color: #b3b3b3;
     --accent-color: #5fffcf;
     --text-color: #181818;

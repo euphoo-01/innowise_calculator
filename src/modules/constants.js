@@ -1,5 +1,6 @@
 const DEFAULT_INPUT_VAL = "";
 const LONG_PRESS_DURATION = 500;
+const THEME_LOCAL_STORAGE_KEY = "current-theme";
 
 const ACTIONS = {
     INPUT: "input",
@@ -62,4 +63,5 @@ export {
     OPERATION_PRIORITY,
     BUTTONS_SETTINGS,
     ACTIONS,
+    THEME_LOCAL_STORAGE_KEY,
 };

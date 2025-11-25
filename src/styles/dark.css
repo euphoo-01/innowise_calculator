@@ -1,7 +1,7 @@
-.dark-theme {
+[data-theme="dark"] {
     --bg-color: #181818;
-    --accent-color: #5fffcf;
-    --text-color: #d3d3d3;
+    --accent-color: #00a876;
+    --text-color: #ffffff;
     --primary-color: #555555;
     --secondary-color: #303030;
 }
