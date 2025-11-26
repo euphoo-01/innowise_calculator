@@ -180,5 +180,6 @@ body {
 }
 
 .error {
-    border: 1px var(--error-color) solid;
+    outline: 3px var(--error-color) solid;
+    outline-offset: -3px;
 }

@@ -18,13 +18,21 @@ if (root) {
     inputWindow.textContent = inputVal;
 
     buttons.forEach((btn) =>
-        btn.addEventListener(
-            "click",
-            () =>
-                (inputWindow.textContent = handleButtonPress(
+        btn.addEventListener("click", () => {
+            try {
+                inputWindow.classList.remove("error");
+
+                const result = handleButtonPress(
                     btn.dataset.actionType,
                     btn.dataset.value,
-                )),
-        ),
+                );
+
+                inputWindow.textContent = result;
+            } catch (e) {
+                // highlighting input window if there is an error
+                console.error(e.message);
+                inputWindow.classList.add("error");
+            }
+        }),
     );
 }

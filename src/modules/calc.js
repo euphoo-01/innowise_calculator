@@ -2,7 +2,6 @@ import { ACTIONS, DEFAULT_INPUT_VAL, OPERATIONS } from "./constants.js";
 
 let curInput = DEFAULT_INPUT_VAL;
 
-// TODO: (L) Input validation, brackets flags
 export function handleButtonPress(action, value) {
     switch (action) {
         case ACTIONS.INPUT:
@@ -52,8 +51,8 @@ export function handleButtonPress(action, value) {
 
                     if (newCurInput.includes("+-") || newCurInput.includes("--")) {
                         newCurInput = newCurInput
-                            .replace(/\+\-/g, "-")
-                            .replace(/\-\-/g, "+");
+                            .replace(/\+-/g, "-")
+                            .replace(/--/g, "+");
                     }
 
                     curInput = newCurInput;
@@ -83,6 +82,14 @@ function convertToRPN(infixStr) {
     const tokens = infixStr.match(/(\d+(\.\d+)?|[+\-×÷()])/g);
     if (!tokens) {
         return "";
+    }
+
+    // validate for repeated operators
+    for (let i = 0; i < tokens.length - 1; i++) {
+        const isOperator = (token) => OPERATIONS[token];
+        if (isOperator(tokens[i]) && isOperator(tokens[i + 1])) {
+            throw new Error("Invalid expression");
+        }
     }
 
     const outputQueue = [];
@@ -122,7 +129,7 @@ function convertToRPN(infixStr) {
                 stackTop = operatorStack.pop();
             }
             if (stackTop !== "(") {
-                throw new Error("Mismatched parentheses!");
+                throw new Error("Mismatched parentheses");
             }
             continue;
         }
@@ -131,7 +138,7 @@ function convertToRPN(infixStr) {
     while (operatorStack.length > 0) {
         const stackTop = operatorStack.pop();
         if (stackTop === "(") {
-            throw new Error("Mismatched parentheses!");
+            throw new Error("Mismatched parentheses");
         }
         outputQueue.push(stackTop);
     }
@@ -166,7 +173,11 @@ function calculate(infixStr) {
                 const rightOperand = digitsStack.pop();
                 const leftOperand = digitsStack.pop();
                 if (rightOperand !== undefined && leftOperand !== undefined) {
-                    digitsStack.push(op.calc(leftOperand, rightOperand));
+                    const result = op.calc(leftOperand, rightOperand);
+                    if (!isFinite(result)) {
+                        throw new Error("Division by zero");
+                    }
+                    digitsStack.push(result);
                 }
             }
         }
@@ -175,6 +186,6 @@ function calculate(infixStr) {
     if (digitsStack.length === 1) {
         return digitsStack[0];
     } else {
-        return NaN;
+        throw new Error("Invalid Expression");
     }
 }
