@@ -22,18 +22,21 @@ You have to install `Node.js` to your system.
 # Structure
 
 ```bash
+- .husky/
+  - _/
+  - pre-push            # Pre push hook configuration
 - src/
   - assets/             # Static stuff (fonts, imgs, icons)
-      - settings.svg
+      - Roboto.woff2
   - modules/            # JS source files
       - calc.js         # Business logic
       - constants.js    # Configuration objects
       - theme.js        # Theme switcher logic
       - ui.js           # UI rendering
   - styles/             # CSS styles
-      - dark.css
-      - light.css
-      - main.css        # CSS entry point
+      - dark.css        # Variables for dark theme
+      - light.css       # Variables for light theme
+      - main.css        # Main styles
   - index.html          # Template for build
   - index.js            # JS entry point
 - .eslintrc.json        # ESLint configuration
