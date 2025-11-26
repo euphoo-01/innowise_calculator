@@ -178,3 +178,7 @@ body {
 .toggle-checkbox:checked + .toggle-slider::before {
     transform: translateX(30px);
 }
+
+.error {
+    border: 1px var(--error-color) solid;
+}

@@ -5,4 +5,5 @@ html:not([data-theme="dark"]) {
     --primary-color: #e4e4e4;
     --secondary-color: #a3a3a3;
     --third-color: #777777;
+    --error-color: #e71d1d;
 }

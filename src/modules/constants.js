@@ -11,13 +11,13 @@ const ACTIONS = {
     DELETE: "delete",
 };
 
-const OPERATION_PRIORITY = {
+const OPERATIONS = {
     // higher value = higher priority
-    "+": 1,
-    "-": 1,
-    "×": 2,
-    "÷": 2,
-    "%": 2,
+    "+": { priority: 1, calc: (a, b) => a + b },
+    "-": { priority: 1, calc: (a, b) => a - b },
+    "×": { priority: 2, calc: (a, b) => a * b },
+    "÷": { priority: 2, calc: (a, b) => a / b },
+    "%": { priority: 2, calc: (a) => a / 100 },
 };
 
 const BUTTONS_SETTINGS = [
@@ -60,7 +60,7 @@ const BUTTONS_SETTINGS = [
 export {
     DEFAULT_INPUT_VAL,
     LONG_PRESS_DURATION,
-    OPERATION_PRIORITY,
+    OPERATIONS,
     BUTTONS_SETTINGS,
     ACTIONS,
     THEME_LOCAL_STORAGE_KEY,
