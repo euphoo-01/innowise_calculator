@@ -9,8 +9,7 @@
   "scripts": {
     "start": "webpack serve",
     "build": "webpack --mode=production",
-    "lint": "eslint . --ext .js",
-    "format": "prettier --write .",
+            "lint": "eslint src/ --ext .js",    "format": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky"
   },
