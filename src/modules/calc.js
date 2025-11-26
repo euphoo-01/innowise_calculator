@@ -79,7 +79,7 @@ export function initInput() {
  * @returns {string} - Expression in RPN.
  */
 function convertToRPN(infixStr) {
-    const tokens = infixStr.match(/(\d+(\.\d+)?|[+\-×÷()])/g);
+    const tokens = infixStr.match(/(\d+(\.\d+)?|[+\-×÷()%])/g);
     if (!tokens) {
         return "";
     }
@@ -129,7 +129,7 @@ function convertToRPN(infixStr) {
                 stackTop = operatorStack.pop();
             }
             if (stackTop !== "(") {
-                throw new Error("Mismatched parentheses");
+                throw new Error("Invalid parentheses");
             }
             continue;
         }
@@ -138,7 +138,7 @@ function convertToRPN(infixStr) {
     while (operatorStack.length > 0) {
         const stackTop = operatorStack.pop();
         if (stackTop === "(") {
-            throw new Error("Mismatched parentheses");
+            throw new Error("Invalid parentheses");
         }
         outputQueue.push(stackTop);
     }
@@ -148,37 +148,54 @@ function convertToRPN(infixStr) {
 
 function calculate(infixStr) {
     const postfixStr = convertToRPN(infixStr);
-    const tokens = postfixStr.split(" ");
+    const tokens = postfixStr.split(" ").filter((t) => t);
 
     const digitsStack = [];
 
-    for (const token of tokens) {
+    for (let i = 0; i < tokens.length; i++) {
+        const token = tokens[i];
+
         if (!isNaN(parseFloat(token))) {
             digitsStack.push(parseFloat(token));
             continue;
         }
 
+        if (token === "%") {
+            const operand = digitsStack.pop();
+            if (operand === undefined) continue;
+
+            if (digitsStack.length > 0) {
+                const leftContext = digitsStack[digitsStack.length - 1];
+
+                if (i + 1 < tokens.length) {
+                    // different formulas for different operators
+                    const nextOp = tokens[i + 1];
+                    if (nextOp === "+" || nextOp === "-") {
+                        digitsStack.push((leftContext * operand) / 100);
+                    } else {
+                        digitsStack.push(operand / 100);
+                    }
+                } else {
+                    digitsStack.push(operand / 100);
+                }
+            } else {
+                digitsStack.push(operand / 100);
+            }
+            continue;
+        }
+
         if (OPERATIONS[token]) {
             const op = OPERATIONS[token];
-            const argCount = op.calc.length; // operator is binary or unary?
+            if (!op.calc) continue;
 
-            if (argCount === 1) {
-                // handle unary
-                const operand = digitsStack.pop();
-                if (operand !== undefined) {
-                    digitsStack.push(op.calc(operand));
+            const rightOperand = digitsStack.pop();
+            const leftOperand = digitsStack.pop();
+            if (rightOperand !== undefined && leftOperand !== undefined) {
+                const result = op.calc(leftOperand, rightOperand);
+                if (!isFinite(result)) {
+                    throw new Error("Division by zero");
                 }
-            } else if (argCount === 2) {
-                // handle binary
-                const rightOperand = digitsStack.pop();
-                const leftOperand = digitsStack.pop();
-                if (rightOperand !== undefined && leftOperand !== undefined) {
-                    const result = op.calc(leftOperand, rightOperand);
-                    if (!isFinite(result)) {
-                        throw new Error("Division by zero");
-                    }
-                    digitsStack.push(result);
-                }
+                digitsStack.push(result);
             }
         }
     }

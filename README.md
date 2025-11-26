@@ -6,18 +6,19 @@ You can get acquainted with task [there](https://docs.google.com/document/d/1zpX
 
 You have to install `Node.js` to your system.
 
+Project has been deployed to github pages. You can have acces to it via [link](https://euphoo-01.github.io/innowise_calculator)
+
 ### Local dev server:
 
-1. Run `npm ci`
+1. Run `npm i`
 2. Run `npm start`
 
 ### Or you can build:
 
-1. Run `npm ci`
-2. Change field `mode` to `"production"` in `./webpack.config.js` file
-3. Run `npm run build`
-4. Open `./dist/` folder
-5. Run `index.html` file in your browser
+1. Run `npm i`
+2. Run `npm run build`
+3. Open `./dist/` folder
+4. Run `index.html` file in your browser
 
 # Structure
 
@@ -43,13 +44,17 @@ You have to install `Node.js` to your system.
 - .prettierrc.json      # Prettier configuration
 - package.json          # NPM configuration, metadata, deps, scripts
 - package-lock.json
-- webpack.config.js     # Webpack builder configuration
+- webpack.config.сjs     # Webpack builder configuration
 ```
 
 I decided to separate business logic from the UI, while building this project.
 
 # Realization details
 
+- Calculator can add, substract, divide, multiply, change operations priority, work with percents
 - Expressions calculation based on Reversed Polish Notation.
-- UI is generated in JS module
+- If there is an error, the input window border becomes red
+- Dark and light theme switching implemented
+- Theme choice is saved to local storage
 - Webpack deletes `console` methods in production build
+- Simple CI/CD pipeline, building and deploying project to GitHub Pages

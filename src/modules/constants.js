@@ -17,7 +17,7 @@ const OPERATIONS = {
     "-": { priority: 1, calc: (a, b) => a - b },
     "×": { priority: 2, calc: (a, b) => a * b },
     "÷": { priority: 2, calc: (a, b) => a / b },
-    "%": { priority: 2, calc: (a) => a / 100 },
+    "%": { priority: 3 },
 };
 
 const BUTTONS_SETTINGS = [
