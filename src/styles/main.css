@@ -110,11 +110,11 @@ body {
 }
 
 .calc-kb-el[data-value="0"] {
-    border-bottom-left-radius: 16px;
+    border-bottom-left-radius: 24px;
 }
 
 .calc-kb-el[data-value="="] {
-    border-bottom-right-radius: 16px;
+    border-bottom-right-radius: 24px;
 }
 
 /* theme toggler */

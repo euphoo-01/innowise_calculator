@@ -79,9 +79,36 @@ export function initInput() {
  * @returns {string} - Expression in RPN.
  */
 function convertToRPN(infixStr) {
-    const tokens = infixStr.match(/(\d+(\.\d+)?|[+\-×÷()%])/g);
-    if (!tokens) {
+    const originalTokens = infixStr.match(/(\d+(\.\d+)?|[+\-×÷()%])/g);
+    if (!originalTokens) {
         return "";
+    }
+
+    const tokens = [];
+    let i = 0;
+    while (i < originalTokens.length) {
+        // processing unary minuses
+        const token = originalTokens[i];
+
+        if (token === "-") {
+            const prevToken = i > 0 ? originalTokens[i - 1] : null;
+            // unary minus = minus at the start, or after another operator or an opening paren.
+            if (prevToken === null || OPERATIONS[prevToken] || prevToken === "(") {
+                const nextToken = originalTokens[i + 1];
+                if (
+                    nextToken &&
+                    !isNaN(parseFloat(nextToken)) &&
+                    !OPERATIONS[nextToken]
+                ) {
+                    tokens.push(`-${nextToken}`);
+                    i += 2; // - and num
+                    continue;
+                }
+            }
+        }
+
+        tokens.push(token);
+        i++;
     }
 
     // validate for repeated operators
